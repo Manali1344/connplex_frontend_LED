@@ -158,7 +158,7 @@ loadData();
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>Connplex LED</title>
+  <title>Connplex Stock LED</title>
 
   <style>
     body {
@@ -171,11 +171,11 @@ loadData();
       overflow: hidden;
     }
 
-    .wrapper {
+    .wrap {
       width: 240px;
       height: 80px;
-      padding: 2px;
       box-sizing: border-box;
+      padding: 2px;
     }
 
     /* SYMBOL */
@@ -186,12 +186,13 @@ loadData();
       margin-bottom: 2px;
     }
 
-    /* PRICE ROW */
+    /* PRICE */
     .price-row {
       display: flex;
       justify-content: center;
       align-items: center;
       gap: 6px;
+      margin-bottom: 2px;
     }
 
     #price {
@@ -210,21 +211,21 @@ loadData();
 
     /* STATS */
     .stats {
+      font-size: 8px;
+      color: #00e5ff;
       display: flex;
       justify-content: space-between;
-      margin-top: 4px;
-      font-size: 9px;
-      color: #00e5ff;
+      flex-wrap: wrap;
+      line-height: 1.2;
     }
 
     .stat {
+      width: 58px;
       text-align: center;
-      width: 30px;
     }
 
     .label {
       color: #888;
-      font-size: 8px;
       display: block;
     }
   </style>
@@ -232,22 +233,29 @@ loadData();
 
 <body>
 
-<div class="wrapper">
+<div class="wrap">
 
-  <div id="symbol">CONNPLEX</div>
+  <div id="symbol">CONNPLEX CINEMAS LTD</div>
 
   <div class="price-row">
     <div id="price">₹---</div>
     <div id="change">--</div>
   </div>
 
+  <!-- ROW 1 -->
   <div class="stats">
-    <div class="stat"><span class="label">O</span><span id="open">--</span></div>
-    <div class="stat"><span class="label">H</span><span id="high">--</span></div>
-    <div class="stat"><span class="label">L</span><span id="low">--</span></div>
-    <div class="stat"><span class="label">V</span><span id="vwap">--</span></div>
-    <div class="stat"><span class="label">N</span><span id="nifty">--</span></div>
-    <div class="stat"><span class="label">S</span><span id="sensex">--</span></div>
+    <div class="stat"><span class="label">PRE</span><span id="prev">--</span></div>
+    <div class="stat"><span class="label">OPEN</span><span id="open">--</span></div>
+    <div class="stat"><span class="label">HIGH</span><span id="high">--</span></div>
+    <div class="stat"><span class="label">LOW</span><span id="low">--</span></div>
+  </div>
+
+  <!-- ROW 2 -->
+  <div class="stats">
+    <div class="stat"><span class="label">CLOSE</span><span id="close">--</span></div>
+    <div class="stat"><span class="label">VWAP</span><span id="vwap">--</span></div>
+    <div class="stat"><span class="label">NIFTY 50</span><span id="nifty">--</span></div>
+    <div class="stat"><span class="label">SENSEX</span><span id="sensex">--</span></div>
   </div>
 
 </div>
@@ -263,16 +271,18 @@ async function loadData() {
     const data = await res.json();
     const s = data.stock;
 
-    document.getElementById("symbol").innerText = "CONNPLEX";
+    document.getElementById("symbol").innerText = s.symbol;
     document.getElementById("price").innerText = "₹" + s.price.toFixed(0);
 
     const ch = document.getElementById("change");
-    ch.innerText = s.change.toFixed(1);
+    ch.innerText = s.change.toFixed(1) + " (" + s.change_percent + "%)";
     ch.className = s.change >= 0 ? "up" : "down";
 
+    document.getElementById("prev").innerText = s.prev_close.toFixed(0);
     document.getElementById("open").innerText = s.open.toFixed(0);
     document.getElementById("high").innerText = s.high.toFixed(0);
     document.getElementById("low").innerText = s.low.toFixed(0);
+    document.getElementById("close").innerText = s.price.toFixed(0);
     document.getElementById("vwap").innerText = s.vwap.toFixed(0);
 
     document.getElementById("nifty").innerText =
@@ -282,7 +292,7 @@ async function loadData() {
       data.index.sensex ? data.index.sensex.toFixed(0) : "--";
 
   } catch (e) {
-    document.getElementById("symbol").innerText = "WAIT...";
+    document.getElementById("symbol").innerText = "WAITING FOR DATA…";
   }
 }
 
@@ -292,3 +302,4 @@ loadData();
 
 </body>
 </html>
+
