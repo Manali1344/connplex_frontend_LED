@@ -3,90 +3,88 @@
 <head>
   <title>Connplex Stock LED</title>
 
-    <style>
-    body {
-      margin: 0;
-      background: black;
-      color: white;
-      font-family: "Consolas", "Courier New", monospace;
-      text-align: center;
-    }
-    * {
-    font-weight: 1200;
+  <style>
+  html, body {
+    width: 100%;
+    height: 100%;
+  }
+
+  * {
+    font-weight: 900;
     -webkit-font-smoothing: none;
     text-rendering: geometricPrecision;
-    }
+  }
 
+  body {
+    margin: 0;
+    background: black;
+    color: white;
+    font-family: "Consolas", "Courier New", monospace;
+    text-align: center;
+  }
 
-    .container {
-      padding-top: 4vh; /* was 30px */
-    }
+  .container {
+    padding-top: 4vh;
+  }
 
-    /* Company Name */
-    #symbol {
-      font-size: 9vh;          /* was 28px */
-      letter-spacing: 0.4vh;
-      margin-bottom: 2vh;     /* was 15px */
-    }
+  /* Company Name */
+  #symbol {
+    font-size: 9vh;
+    letter-spacing: 0.4vh;
+    margin-bottom: 2vh;
+  }
 
-    /* Price row */
-    .price-row {
-      display: flex;
-      justify-content: center;
-      align-items: baseline;
-      gap: 3vw;               /* was 20px */
-    }
+  /* Price row */
+  .price-row {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 3vw;
+  }
 
-    #price {
-      font-size: 18vh;        /* was 56px */
-      font-weight: 1200;
-      color: #00ff66;
-    }
+  #price {
+    font-size: 18vh;
+    color: #00ff66;
+  }
 
-    #change {
-      font-size: 9vh;         /* was 28px */
-      font-weight: 1200;
-    }
+  #change {
+    font-size: 9vh;
+  }
 
-    .up {
-      color: #00ff66;
-    }
+  .up { color: #00ff66; }
+  .down { color: #ff3333; }
 
-    .down {
-      color: #ff3333;
-    }
+  /* Stats row */
+  .stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2vw;
+    margin-top: 4vh;
+    flex-wrap: nowrap;
+  }
 
-    /* Stats row */
-    .stats {
-      display: flex;
-      justify-content: center;
-      gap: 3vw;               /* was 28px */
-      margin-top: 4vh;        /* was 30px */
-      flex-wrap: wrap;
-    }
+  .stat {
+    text-align: center;
+    flex: 1;
+  }
 
-    .stat {
-      text-align: center;
-      min-width: 10vw;        /* was 90px */
-    }
+  .stat-label {
+    font-size: 4.5vh;
+    color: #888;
+    margin-bottom: 0.5vh;
+  }
 
-    .stat-label {
-      font-size: 4.5vh;         /* was 14px */
-      color: #888;
-      margin-bottom: 1vh;     /* was 6px */
-    }
+  .stat-value {
+    font-size: 6vh;
+    color: #00e5ff;
+  }
 
-    .stat-value {
-      font-size: 6vh;         /* was 18px */
-      color: #00e5ff;
-      font-weight: bold;
-    }
-
-    #time {
-      margin-top: 3vh;        /* was 25px */
-      font-size: 4vh;       /* was 14px */
-      color: #777;
-    }
+  #time {
+    margin-top: 3vh;
+    font-size: 4vh;
+    color: #777;
+  }
   </style>
 
 </head>
