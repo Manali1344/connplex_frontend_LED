@@ -2,71 +2,152 @@
 <html>
 <head>
   <title>Connplex Stock LED</title>
+
   <style>
     body {
+      margin: 0;
       background: black;
       color: white;
-      font-family: Consolas;
+      font-family: "Consolas", "Courier New", monospace;
       text-align: center;
     }
-    .price { font-size: 48px; color: lime; }
-    .down { color: red; }
-    .up { color: lime; }
+
+    .container {
+      padding-top: 30px;
+    }
+
+    /* Company Name */
+    #symbol {
+      font-size: 28px;
+      letter-spacing: 2px;
+      margin-bottom: 15px;
+    }
+
+    /* Price row */
+    .price-row {
+      display: flex;
+      justify-content: center;
+      align-items: baseline;
+      gap: 20px;
+    }
+
+    #price {
+      font-size: 56px;
+      font-weight: bold;
+      color: #00ff66;
+    }
+
+    #change {
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .up {
+      color: #00ff66;
+    }
+
+    .down {
+      color: #ff3333;
+    }
+
+    /* Stats row */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      text-align: center;
+      min-width: 90px;
+    }
+
+    .stat-label {
+      font-size: 14px;
+      color: #888;
+      margin-bottom: 6px;
+    }
+
+    .stat-value {
+      font-size: 18px;
+      color: #00e5ff;
+      font-weight: bold;
+    }
+
+    #time {
+      margin-top: 25px;
+      font-size: 14px;
+      color: #777;
+    }
   </style>
 </head>
+
 <body>
 
-<h2 id="symbol">Loading...</h2>
-<div id="price" class="price">--</div>
-<div id="change"></div>
+<div class="container">
 
-<p>
-  Open: <span id="open"></span> |
-  High: <span id="high"></span> |
-  Low: <span id="low"></span> |
-  VWAP: <span id="vwap"></span>
-</p>
+  <div id="symbol">LOADING...</div>
 
-<p>
-  NIFTY: <span id="nifty"></span> |
-  SENSEX: <span id="sensex"></span>
-</p>
+  <div class="price-row">
+    <div id="price">₹0.00</div>
+    <div id="change">--</div>
+  </div>
 
-<p id="time"></p>
+  <div class="stats">
+    <div class="stat"><div class="stat-label">PREV</div><div id="prev" class="stat-value">--</div></div>
+    <div class="stat"><div class="stat-label">OPEN</div><div id="open" class="stat-value">--</div></div>
+    <div class="stat"><div class="stat-label">HIGH</div><div id="high" class="stat-value">--</div></div>
+    <div class="stat"><div class="stat-label">LOW</div><div id="low" class="stat-value">--</div></div>
+    <div class="stat"><div class="stat-label">CLOSE</div><div id="close" class="stat-value">--</div></div>
+    <div class="stat"><div class="stat-label">VWAP</div><div id="vwap" class="stat-value">--</div></div>
+    <div class="stat"><div class="stat-label">NIFTY 50</div><div id="nifty" class="stat-value">--</div></div>
+    <div class="stat"><div class="stat-label">SENSEX</div><div id="sensex" class="stat-value">--</div></div>
+  </div>
+
+  <div id="time"></div>
+
+</div>
 
 <script>
 const API_URL = "https://connplex-activeled.onrender.com/data";
 
 async function loadData() {
   try {
-    const res = await fetch(API_URL);
-    if (!res.ok) throw new Error("API response not OK");
+    const res = await fetch(API_URL, { cache: "no-store" });
+    if (!res.ok) throw new Error("API error");
 
     const data = await res.json();
-    console.log("API data:", data);
-
     const s = data.stock;
-    if (!s) throw new Error("Stock data missing");
 
     document.getElementById("symbol").innerText = s.symbol;
+
     document.getElementById("price").innerText = "₹" + s.price.toFixed(2);
 
-    const change = document.getElementById("change");
-    change.innerText = `${s.change} (${s.change_percent}%)`;
-    change.className = s.change >= 0 ? "up" : "down";
+    const changeEl = document.getElementById("change");
+    changeEl.innerText = `${s.change.toFixed(2)} (${s.change_percent}%)`;
+    changeEl.className = s.change >= 0 ? "up" : "down";
 
+    document.getElementById("prev").innerText = s.prev_close;
     document.getElementById("open").innerText = s.open;
     document.getElementById("high").innerText = s.high;
     document.getElementById("low").innerText = s.low;
+    document.getElementById("close").innerText = s.price;
     document.getElementById("vwap").innerText = s.vwap;
 
-    document.getElementById("nifty").innerText = data.index.nifty ?? "N/A";
-    document.getElementById("sensex").innerText = data.index.sensex ?? "N/A";
+    document.getElementById("nifty").innerText =
+      data.index.nifty ? data.index.nifty.toFixed(2) : "N/A";
 
-    document.getElementById("time").innerText = "As on " + data.timestamp;
+    document.getElementById("sensex").innerText =
+      data.index.sensex ? data.index.sensex.toFixed(2) : "N/A";
+
+    document.getElementById("time").innerText =
+      "As on " + data.timestamp;
+
   } catch (err) {
-    console.error("FETCH ERROR:", err);
-    document.getElementById("symbol").innerText = "API ERROR";
+    console.error(err);
+    document.getElementById("symbol").innerText = "WAITING FOR DATA…";
   }
 }
 
