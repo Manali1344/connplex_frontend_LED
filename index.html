@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
   <title>Connplex Stock LED</title>
@@ -142,12 +142,147 @@ async function loadData() {
     document.getElementById("sensex").innerText =
       data.index.sensex ? data.index.sensex.toFixed(2) : "N/A";
 
-    document.getElementById("time").innerText =
-      "As on " + data.timestamp;
-
   } catch (err) {
     console.error(err);
     document.getElementById("symbol").innerText = "WAITING FOR DATA…";
+  }
+}
+
+setInterval(loadData, 3000);
+loadData();
+</script>
+
+</body>
+</html> -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Connplex LED</title>
+
+  <style>
+    body {
+      margin: 0;
+      width: 240px;
+      height: 80px;
+      background: black;
+      color: white;
+      font-family: Consolas, monospace;
+      overflow: hidden;
+    }
+
+    .wrapper {
+      width: 240px;
+      height: 80px;
+      padding: 2px;
+      box-sizing: border-box;
+    }
+
+    /* SYMBOL */
+    #symbol {
+      font-size: 10px;
+      text-align: center;
+      letter-spacing: 1px;
+      margin-bottom: 2px;
+    }
+
+    /* PRICE ROW */
+    .price-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+    }
+
+    #price {
+      font-size: 22px;
+      font-weight: bold;
+      color: #00ff66;
+    }
+
+    #change {
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .up { color: #00ff66; }
+    .down { color: #ff3333; }
+
+    /* STATS */
+    .stats {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 4px;
+      font-size: 9px;
+      color: #00e5ff;
+    }
+
+    .stat {
+      text-align: center;
+      width: 30px;
+    }
+
+    .label {
+      color: #888;
+      font-size: 8px;
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+  <div id="symbol">CONNPLEX</div>
+
+  <div class="price-row">
+    <div id="price">₹---</div>
+    <div id="change">--</div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><span class="label">O</span><span id="open">--</span></div>
+    <div class="stat"><span class="label">H</span><span id="high">--</span></div>
+    <div class="stat"><span class="label">L</span><span id="low">--</span></div>
+    <div class="stat"><span class="label">V</span><span id="vwap">--</span></div>
+    <div class="stat"><span class="label">N</span><span id="nifty">--</span></div>
+    <div class="stat"><span class="label">S</span><span id="sensex">--</span></div>
+  </div>
+
+</div>
+
+<script>
+const API_URL = "https://connplex-activeled.onrender.com/data";
+
+async function loadData() {
+  try {
+    const res = await fetch(API_URL, { cache: "no-store" });
+    if (!res.ok) throw new Error("API error");
+
+    const data = await res.json();
+    const s = data.stock;
+
+    document.getElementById("symbol").innerText = "CONNPLEX";
+    document.getElementById("price").innerText = "₹" + s.price.toFixed(0);
+
+    const ch = document.getElementById("change");
+    ch.innerText = s.change.toFixed(1);
+    ch.className = s.change >= 0 ? "up" : "down";
+
+    document.getElementById("open").innerText = s.open.toFixed(0);
+    document.getElementById("high").innerText = s.high.toFixed(0);
+    document.getElementById("low").innerText = s.low.toFixed(0);
+    document.getElementById("vwap").innerText = s.vwap.toFixed(0);
+
+    document.getElementById("nifty").innerText =
+      data.index.nifty ? data.index.nifty.toFixed(0) : "--";
+
+    document.getElementById("sensex").innerText =
+      data.index.sensex ? data.index.sensex.toFixed(0) : "--";
+
+  } catch (e) {
+    document.getElementById("symbol").innerText = "WAIT...";
   }
 }
 
