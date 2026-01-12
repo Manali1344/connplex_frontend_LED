@@ -3,7 +3,7 @@
 <head>
   <title>Connplex Stock LED</title>
 
-  <style>
+    <style>
     body {
       margin: 0;
       background: black;
@@ -13,14 +13,14 @@
     }
 
     .container {
-      padding-top: 30px;
+      padding-top: 4vh; /* was 30px */
     }
 
     /* Company Name */
     #symbol {
-      font-size: 28px;
-      letter-spacing: 2px;
-      margin-bottom: 15px;
+      font-size: 7vh;          /* was 28px */
+      letter-spacing: 0.4vh;
+      margin-bottom: 2vh;     /* was 15px */
     }
 
     /* Price row */
@@ -28,17 +28,17 @@
       display: flex;
       justify-content: center;
       align-items: baseline;
-      gap: 20px;
+      gap: 3vw;               /* was 20px */
     }
 
     #price {
-      font-size: 56px;
+      font-size: 15vh;        /* was 56px */
       font-weight: bold;
       color: #00ff66;
     }
 
     #change {
-      font-size: 28px;
+      font-size: 7vh;         /* was 28px */
       font-weight: bold;
     }
 
@@ -54,34 +54,35 @@
     .stats {
       display: flex;
       justify-content: center;
-      gap: 28px;
-      margin-top: 30px;
+      gap: 3vw;               /* was 28px */
+      margin-top: 4vh;        /* was 30px */
       flex-wrap: wrap;
     }
 
     .stat {
       text-align: center;
-      min-width: 90px;
+      min-width: 10vw;        /* was 90px */
     }
 
     .stat-label {
-      font-size: 14px;
+      font-size: 4vh;         /* was 14px */
       color: #888;
-      margin-bottom: 6px;
+      margin-bottom: 1vh;     /* was 6px */
     }
 
     .stat-value {
-      font-size: 18px;
+      font-size: 5vh;         /* was 18px */
       color: #00e5ff;
       font-weight: bold;
     }
 
     #time {
-      margin-top: 25px;
-      font-size: 14px;
+      margin-top: 3vh;        /* was 25px */
+      font-size: 3.5vh;       /* was 14px */
       color: #777;
     }
   </style>
+
 </head>
 
 <body>
