@@ -36,6 +36,31 @@
       color: #E6A64B;   /* GOLD / YELLOW */
     }
 
+    /* Brand row: logo + company name */
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5vh;
+      margin-bottom: 1vh;
+    }
+
+    #logo {
+      height: 9vh;
+      width: auto;
+      object-fit: contain;
+      -webkit-user-drag: none;
+      user-select: none;
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 600px) {
+      #logo { height: 6vh; }
+      #symbol { font-size: 6vh; }
+      #price { font-size: 12vh; }
+      #change { font-size: 5vh; }
+    }
+
     /* Price row */
     .price-row {
       display: flex;
@@ -95,7 +120,10 @@
 
   <div class="container">
 
-    <div id="symbol">LOADING…</div>
+    <div class="brand">
+      <img id="logo" src="connplex_logo.jpg" alt="Connplex logo" />
+      <div id="symbol">LOADING…</div>
+    </div>
 
     <div class="price-row">
       <div id="price">₹0.00</div>
