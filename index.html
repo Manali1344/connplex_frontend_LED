@@ -137,11 +137,11 @@
       <div class="stat"><div class="stat-label">LOW</div><div id="low" class="stat-value">--</div></div>
       <div class="stat"><div class="stat-label">CLOSE</div><div id="close" class="stat-value">--</div></div>
       <div class="stat"><div class="stat-label">VWAP</div><div id="vwap" class="stat-value">--</div></div>
-      <div class="stat"><div class="stat-label">NIFTY 50</div><div id="nifty" class="stat-value">--</div></div>
-      <div class="stat"><div class="stat-label">SENSEX</div><div id="sensex" class="stat-value">--</div></div>
+      <!-- <div class="stat"><div class="stat-label">NIFTY 50</div><div id="nifty" class="stat-value">--</div></div>
+      <div class="stat"><div class="stat-label">SENSEX</div><div id="sensex" class="stat-value">--</div></div> -->
     </div>
 
-    <div id="time"></div>
+    <!-- <div id="time"></div> -->
 
   </div>
 
@@ -174,21 +174,21 @@
         document.getElementById("close").innerText = s.price;
         document.getElementById("vwap").innerText = s.vwap;
 
-        document.getElementById("nifty").innerText =
-          data.index.nifty ? data.index.nifty.toFixed(2) : "N/A";
+        // document.getElementById("nifty").innerText =
+        //   data.index.nifty ? data.index.nifty.toFixed(2) : "N/A";
 
-        document.getElementById("sensex").innerText =
-          data.index.sensex ? data.index.sensex.toFixed(2) : "N/A";
+        // document.getElementById("sensex").innerText =
+        //   data.index.sensex ? data.index.sensex.toFixed(2) : "N/A";
 
-        document.getElementById("time").innerText =
-          new Date().toLocaleString("en-IN", {
-            day: "2-digit",
-            month: "short",
-            year: "numeric",
-            hour: "2-digit",
-            minute: "2-digit",
-            second: "2-digit"
-          }) + " IST";
+        // document.getElementById("time").innerText =
+        //   new Date().toLocaleString("en-IN", {
+        //     day: "2-digit",
+        //     month: "short",
+        //     year: "numeric",
+        //     hour: "2-digit",
+        //     minute: "2-digit",
+        //     second: "2-digit"
+        //   }) + " IST";
 
       } catch (err) {
         console.error(err);
